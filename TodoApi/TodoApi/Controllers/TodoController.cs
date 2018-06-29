@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TodoApi.Data;
 using TodoApi.Models;
 
 namespace TodoApi.Controllers
@@ -11,9 +12,9 @@ namespace TodoApi.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
-        private readonly TodoContext _context;
+        private readonly TodoDbContext _context;
 
-        public TodoController(TodoContext context)
+        public TodoController(TodoDbContext context)
         {
             _context = context;
 

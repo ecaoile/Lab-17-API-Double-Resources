@@ -3,16 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TodoApi.Models;
 
-namespace TodoApi.Models
+namespace TodoApi.Data
 {
-    public class TodoContext : DbContext
+    public class TodoDbContext : DbContext
     {
-        public TodoContext(DbContextOptions<TodoContext> options) : base (options)
+        public TodoDbContext(DbContextOptions<TodoDbContext> options) : base(options)
         {
 
         }
 
         public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<TodoList> TodoLists { get; set; }
     }
 }
