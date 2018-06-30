@@ -21,9 +21,14 @@ namespace TodoApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<TodoList>> GetAll()
+        public async Task<ActionResult<List<TodoList>>> GetAllAsync()
         {
-            return _context.TodoLists.ToList();
+            var demLists = await _context.TodoLists.ToListAsync();
+            foreach (var item in demLists)
+            {
+                var todos = _context.TodoItems.Where(l => l.DatListID == item.ID).ToList();
+            }
+            return demLists;
         }
 
         [HttpGet("{id}", Name = "GetTodoList")]
@@ -35,13 +40,14 @@ namespace TodoApi.Controllers
             }
 
             TodoList datList = await _context.TodoLists.FindAsync(id);
-            var todos = _context.TodoItems.Where(l => l.DatListID == id).ToList();
-            datList.TodoItems = todos;
-
             if (datList == null)
             {
                 return NotFound();
             }
+
+            var todos = _context.TodoItems.Where(l => l.DatListID == id).ToList();
+            datList.TodoItems = todos;
+
 
             return datList;
         }
@@ -63,39 +69,23 @@ namespace TodoApi.Controllers
                 return BadRequest(ModelState);
             }
 
+            // ensures that the same list is being updated
             if (id != list.ID)
             {
                 return BadRequest();
             }
 
-            //var datList = await _context.TodoLists.FindAsync(id);
+            var datList = await _context.TodoLists.FindAsync(id);
 
-            //if (datList == null)
-            //{
-            //    return NotFound();
-            //}
-
-            _context.Entry(list).State = EntityState.Modified;
-
-            try
+            if (datList == null)
             {
-                await _context.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TodoListExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            //datList.Name = list.Name;
 
-            //_context.TodoLists.Update(datList);
-            //await _context.SaveChangesAsync();
+            datList.Name = list.Name;
+
+            _context.TodoLists.Update(datList);
+            await _context.SaveChangesAsync();
             return NoContent();
         }
 

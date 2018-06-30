@@ -62,6 +62,11 @@ namespace TodoApi.Controllers
                 return NotFound();
             }
 
+            if (id != item.ID)
+            {
+                return BadRequest();
+            }
+
             todo.IsComplete = item.IsComplete;
             todo.Name = item.Name;
 
