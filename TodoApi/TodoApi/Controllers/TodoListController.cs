@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,25 +56,57 @@ namespace TodoApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(long id, TodoList list)
+        public async Task<IActionResult> Update(int id, TodoList list)
         {
-            var datList = await _context.TodoLists.FindAsync(id);
-
-            if (datList == null)
+            if (!ModelState.IsValid)
             {
-                return NotFound();
+                return BadRequest(ModelState);
             }
 
-            datList.Name = list.Name;
+            if (id != list.ID)
+            {
+                return BadRequest();
+            }
 
-            _context.TodoLists.Update(datList);
-            await _context.SaveChangesAsync();
+            //var datList = await _context.TodoLists.FindAsync(id);
+
+            //if (datList == null)
+            //{
+            //    return NotFound();
+            //}
+
+            _context.Entry(list).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TodoListExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            //datList.Name = list.Name;
+
+            //_context.TodoLists.Update(datList);
+            //await _context.SaveChangesAsync();
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id)
+        public async Task<IActionResult> Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var datList = await _context.TodoLists.FindAsync(id);
 
             if (datList == null)
@@ -84,6 +117,11 @@ namespace TodoApi.Controllers
             _context.TodoLists.Remove(datList);
             await _context.SaveChangesAsync();
             return NoContent();
+        }
+
+        private bool TodoListExists(int id)
+        {
+            return _context.TodoLists.Any(l => l.ID == id);
         }
     }
 }
