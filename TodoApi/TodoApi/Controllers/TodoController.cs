@@ -13,7 +13,11 @@ namespace TodoApi.Controllers
     public class TodoController : ControllerBase
     {
         private readonly TodoDbContext _context;
-
+        /// <summary>
+        /// grabs the database to use for method in the TodoController
+        /// and creates a dummy todo item if no other item exists
+        /// </summary>
+        /// <param name="context">the database to use</param>
         public TodoController(TodoDbContext context)
         {
             _context = context;
@@ -25,13 +29,21 @@ namespace TodoApi.Controllers
             }
         }
 
+        /// <summary>
+        /// displays all todo items
+        /// </summary>
+        /// <returns>all TodoItem objects in the database</returns>
         [HttpGet]
         public ActionResult<List<TodoItem>> GetAll()
         {
             return _context.TodoItems.ToList();
         }
 
-        // I'm making this async even though the docs don't mention it. If something breaks, try changing it back.
+        /// <summary>
+        /// displays a specific todo item based on id input
+        /// </summary>
+        /// <param name="id">the id of the todo item to display</param>
+        /// <returns>the Todo object</returns>
         [HttpGet("{id}", Name = "GetTodo")]
         public async Task<ActionResult<TodoItem>> GetById(long id)
         {
@@ -43,7 +55,11 @@ namespace TodoApi.Controllers
             return item;
         }
 
-        // I'm making this async even though the docs don't mention it. If something breaks, try changing it back.
+        /// <summary>
+        /// creates a new todo item in the database
+        /// </summary>
+        /// <param name="item">the TodoItem object to create in the database</param>
+        /// <returns>the newly added TodoItem object</returns>
         [HttpPost]
         public async Task<IActionResult> Create(TodoItem item)
         {
@@ -69,6 +85,7 @@ namespace TodoApi.Controllers
 
             todo.IsComplete = item.IsComplete;
             todo.Name = item.Name;
+            todo.DatListID = item.DatListID;
 
             _context.TodoItems.Update(todo);
             await _context.SaveChangesAsync();
