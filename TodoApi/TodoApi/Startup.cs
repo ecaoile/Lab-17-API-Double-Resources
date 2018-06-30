@@ -30,8 +30,6 @@ namespace TodoApi
             services.AddMvc();
             services.AddDbContext<TodoDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<TodoDbContext>(opt => opt.UseInMemoryDatabase("TodoList"));
-            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

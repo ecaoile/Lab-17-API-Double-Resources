@@ -45,7 +45,7 @@ namespace TodoApi.Controllers
 
         // I'm making this async even though the docs don't mention it. If something breaks, try changing it back.
         [HttpPost]
-        public async Task<IActionResult> Create (TodoItem item)
+        public async Task<IActionResult> Create(TodoItem item)
         {
             _context.TodoItems.Add(item);
             await _context.SaveChangesAsync();

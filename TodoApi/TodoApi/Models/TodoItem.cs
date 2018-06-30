@@ -10,6 +10,6 @@ namespace TodoApi.Models
         public long ID { get; set; }
         public string Name { get; set; }
         public bool IsComplete { get; set; }
-        public TodoList DatListID { get; set; }
+        public int DatListID { get; set; }
     }
 }
