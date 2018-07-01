@@ -15,11 +15,20 @@ namespace TodoApi.Controllers
     {
         private readonly TodoDbContext _context;
 
+        /// <summary>
+        /// grabs the database to use for other methods in 
+        /// the TodoListController
+        /// </summary>
+        /// <param name="context"></param>
         public TodoListController(TodoDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// grabs all of the TodoList objects in the database
+        /// </summary>
+        /// <returns>a list of TodoList objects</returns>
         [HttpGet]
         public async Task<ActionResult<List<TodoList>>> GetAllAsync()
         {
@@ -31,6 +40,11 @@ namespace TodoApi.Controllers
             return demLists;
         }
 
+        /// <summary>
+        /// grabs a specific TodoList object
+        /// </summary>
+        /// <param name="id">the ID of the TodoList object to view</param>
+        /// <returns>the TodoList object with the matching ID</returns>
         [HttpGet("{id}", Name = "GetTodoList")]
         public async Task<ActionResult<TodoList>> GetById(int id)
         {
@@ -52,6 +66,11 @@ namespace TodoApi.Controllers
             return datList;
         }
 
+        /// <summary>
+        /// creates a new TodoList object in the database
+        /// </summary>
+        /// <param name="list">the TodoList object to add</param>
+        /// <returns>created object response with the added object</returns>
         [HttpPost]
         public async Task<IActionResult> Create(TodoList list)
         {
@@ -61,6 +80,12 @@ namespace TodoApi.Controllers
             return CreatedAtRoute("GetTodoList", new { id = list.ID }, list);
         }
 
+        /// <summary>
+        /// edit an existing TodoList object in the database
+        /// </summary>
+        /// <param name="id">the ID of the TodoList object to edit</param>
+        /// <param name="list">the object with the properties to edit</param>
+        /// <returns>an empty status code object</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, TodoList list)
         {
@@ -89,6 +114,11 @@ namespace TodoApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// deletes a TodoList object from the database
+        /// </summary>
+        /// <param name="id">the IE of the TodoList object to delete</param>
+        /// <returns>an empty status code object</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -107,11 +137,6 @@ namespace TodoApi.Controllers
             _context.TodoLists.Remove(datList);
             await _context.SaveChangesAsync();
             return NoContent();
-        }
-
-        private bool TodoListExists(int id)
-        {
-            return _context.TodoLists.Any(l => l.ID == id);
         }
     }
 }

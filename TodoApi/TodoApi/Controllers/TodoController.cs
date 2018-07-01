@@ -14,7 +14,7 @@ namespace TodoApi.Controllers
     {
         private readonly TodoDbContext _context;
         /// <summary>
-        /// grabs the database to use for method in the TodoController
+        /// grabs the database to use for other methods in the TodoController
         /// and creates a dummy todo item if no other item exists
         /// </summary>
         /// <param name="context">the database to use</param>
@@ -59,7 +59,7 @@ namespace TodoApi.Controllers
         /// creates a new todo item in the database
         /// </summary>
         /// <param name="item">the TodoItem object to create in the database</param>
-        /// <returns>the newly added TodoItem object</returns>
+        /// <returns>the created response with the added object as values</returns>
         [HttpPost]
         public async Task<IActionResult> Create(TodoItem item)
         {
@@ -69,6 +69,12 @@ namespace TodoApi.Controllers
             return CreatedAtRoute("GetTodo", new { id = item.ID }, item);
         }
 
+        /// <summary>
+        /// updates an existing TodoItem objectx in the database
+        /// </summary>
+        /// <param name="id">the ID value of the item to edit</param>
+        /// <param name="item">the object with the properties to change</param>
+        /// <returns>empty status code object</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(long id, TodoItem item)
         {
@@ -92,6 +98,11 @@ namespace TodoApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// deletes a TodoItem object from the database
+        /// </summary>
+        /// <param name="id">the id of the TodoItem object to remove</param>
+        /// <returns>empty status code object</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(long id)
         {
