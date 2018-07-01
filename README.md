@@ -16,10 +16,10 @@ The following is required to run the program.
 3. ASP.NET web API packages
 
 ## Example
-![Lab 17 Screenshot 1](Lab17-SS1.jpg) <br />
-![Lab 17 Screenshot 2](Lab17-SS2.jpg) <br />
-![Lab 17 Screenshot 3](Lab17-SS3.jpg) <br />
-![Lab 17 Screenshot 4](Lab17-SS4.jpg) <br />
+![Lab 17 Screenshot 1](Lab17-Todo-JSON-SS.jpg) <br />
+![Lab 17 Screenshot 2](Lab17-Todo-RawData-SS.jpg) <br />
+![Lab 17 Screenshot 3](Lab17-TodoList-JSON-SS.jpg) <br />
+![Lab 17 Screenshot 4](Lab17-TodoList-RawData-SS.jpg) <br />
 
 ## Happy path
 - start the API within Visual Studio by pressing the green play button
