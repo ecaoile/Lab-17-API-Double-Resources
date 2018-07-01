@@ -1,11 +1,13 @@
-# Lab-17-API-Double-Resources
- CODE: Web API Double Resource assignment for Code Fellows 401 C#/ASP.NET course
+# Lab 17: Web APIs
+ CODE: Web APIs assignment for Code Fellows 401 C#/ASP.NET course
 
 **Author**: Earl Jay Caoile <br />
 **Version**: 1.0.0
 
 ## Overview
-This MVC web application does blah, blah, blah!
+This web API contains a TODO items as well as TODO lists.
+Users can create, edit, and delete both TODO items as well
+as TODO lists.
 
 ## Getting Started
 The following is required to run the program.
@@ -17,22 +19,27 @@ The following is required to run the program.
 ![Lab 17 Screenshot 1](Lab17-SS1.jpg) <br />
 ![Lab 17 Screenshot 2](Lab17-SS2.jpg) <br />
 ![Lab 17 Screenshot 3](Lab17-SS3.jpg) <br />
-![Lab 17 Screenshot 4](Lab17-SS4.jpg) <br />
-![Lab 17 Screenshot 5](Lab17-SS5.jpg) <br />
 
 ## Happy path
-- open home page
-- click students page button
-- view studets and perform CRUD operations (create, edit, view details, delete)
-- click button to return to home page
-- click courses page button
-- view courses and perform CRUD operations (create, edit, view details, delete)
+- start the API within Visual Studio by pressing the green play button
+- open Postman and enter the localhost URL along with /api/todoitem
+- view all of the todo items
+- perform CRUD operations on the todo items
+- change the URL after the home localhost URL to /api/todolist
+- view all of the todo lists
+- perform CRUD operations on the todo lists
 - smile
 
 ## Architecture
 This application is created using ASP.NET Core 2.1 Web Application <br />
-*Languages*: C#, HTML, CSS <br />
-*Type of Applicaiton*: Web Application <br />
+*Languages*: C# <br />
+*Type of Applicaiton*: Web API <br />
 
 ## Change Log
 06-27-2018 5:00 PM - initial scaffolding <br />
+06-28-2018 2:00 PM - methods created for todo items <br />
+06-29-2018 6:00 PM - methods created for todo lists <br />
+06-30-2018 2:00 PM - tests created and passed <br />
+06-30-2018 3:00 PM - commented API methods <br />
+06-30-2018 3:30 PM - finished README <br />
+
